@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inter-Collegiate Registration</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Registration Form</h2>
+
+    <form id="regForm">
+        Name:
+        <input type="text" id="name">
+        <div id="nameError" class="error"></div>
+
+        Email:
+        <input type="text" id="email">
+        <div id="emailError" class="error"></div>
+
+        Phone:
+        <input type="text" id="phone">
+        <div id="phoneError" class="error"></div>
+
+        College Name:
+        <input type="text" id="college">
+        <div id="collegeError" class="error"></div>
+
+        Event:
+        <select id="event">
+            <option value="">--Select Event--</option>
+            <option>Technical Quiz</option>
+            <option>Coding</option>
+            <option>Paper Presentation</option>
+        </select>
+        <div id="eventError" class="error"></div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p id="successMsg" style="color:green;"></p>
+</div>
+
+<script>
+document.getElementById("regForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Clear previous errors
+    document.querySelectorAll(".error").forEach(el => el.innerHTML = "");
+    document.getElementById("successMsg").innerHTML = "";
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let college = document.getElementById("college").value.trim();
+    let event = document.getElementById("event").value;
+
+    let valid = true;
+
+    // Name validation
+    if (name.length < 3) {
+        document.getElementById("nameError").innerHTML = "Name must be at least 3 characters";
+        valid = false;
+    }
+
+    // Email validation
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.match(emailPattern)) {
+        document.getElementById("emailError").innerHTML = "Enter valid email";
+        valid = false;
+    }
+
+    // Phone validation
+    let phonePattern = /^[0-9]{10}$/;
+    if (!phone.match(phonePattern)) {
+        document.getElementById("phoneError").innerHTML = "Enter 10-digit phone number";
+        valid = false;
+    }
+
+    // College validation
+    if (college.length < 3) {
+        document.getElementById("collegeError").innerHTML = "College name must be at least 3 characters";
+        valid = false;
+    }
+
+    // Event validation
+    if (event === "") {
+        document.getElementById("eventError").innerHTML = "Please select an event";
+        valid = false;
+    }
+
+    // Success
+    if (valid) {
+        document.getElementById("successMsg").innerHTML = "Registration Successful!";
+    }
+});
+</script>
+
+</body>
+</html>
